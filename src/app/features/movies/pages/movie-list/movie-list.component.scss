@@ -1,0 +1,38 @@
+.movie-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  img {
+    height: 342px;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.movie-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.movie-overview {
+  font-size: 13px;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-field {
+  min-width: 260px;
+}
+
+@media (max-width: 576px) {
+  .search-field {
+    min-width: 100%;
+  }
+}

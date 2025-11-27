@@ -1,0 +1,67 @@
+<div class="login-container d-flex justify-content-center align-items-center">
+
+  <div class="card login-card shadow-lg">
+
+    <h2 class="text-center mb-4">Welcome Back</h2>
+
+    <form (ngSubmit)="submit()">
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          name="email"
+          required
+        />
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Password</mat-label>
+
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          required
+        />
+
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword.set(!hidePassword())"
+        >
+          <mat-icon>
+            {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+
+      <!-- Error -->
+      <div class="text-danger text-center mb-2" *ngIf="error()">
+        {{ error() }}
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        mat-raised-button
+        color="primary"
+        class="w-100 py-2"
+        [disabled]="loading()"
+      >
+        <span *ngIf="!loading()">Login</span>
+        <span *ngIf="loading()">Loading...</span>
+      </button>
+
+    </form>
+  </div>
+
+</div>
