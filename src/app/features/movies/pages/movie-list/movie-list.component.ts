@@ -9,7 +9,7 @@ import {MatIcon} from '@angular/material/icon';
 @Component({
   selector: 'app-movie-list',
 
-  imports: [CommonModule, MovieCardComponent, MatProgressSpinner, MatInput, MatIcon],
+  imports: [CommonModule, MovieCardComponent, MatProgressSpinner],
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss']
 })
