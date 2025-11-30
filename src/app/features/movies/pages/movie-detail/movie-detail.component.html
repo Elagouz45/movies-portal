@@ -1,165 +1,56 @@
-<div class="imdb-detail-page" *ngIf="movie as m">
+<!-- SKELETON -->
+<movie-detail-skeleton *ngIf="loading()"></movie-detail-skeleton>
 
-  <!-- TOP HERO SECTION -->
-  <div class="hero-section" [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original' + m.backdrop_path + ')'">
-    <div class="hero-overlay"></div>
+<!-- PAGE CONTENT -->
+<div class="movie-detail-page" *ngIf="!loading() && movie() as m">
 
-    <div class="container hero-content">
+  <!-- HERO SECTION -->
+  <movie-hero [movie]="m"></movie-hero>
 
-      <!-- LEFT: Poster -->
-      <div class="poster-wrapper">
-        <img
-          *ngIf="m.poster_path"
-          class="poster"
-          [src]="'https://image.tmdb.org/t/p/w500' + m.poster_path"
-          alt="{{ m.title }}"
-        />
-      </div>
+  <div class="container mt-4">
 
-      <!-- RIGHT: Title & Rating -->
-      <div class="headline">
+    <div class="row">
 
-        <h1 class="title">
-          {{ m.title }}
-          <span class="year">({{ m.release_date | date:'yyyy' }})</span>
-        </h1>
+      <!-- LEFT SIDE -->
+      <div class="col-lg-9 col-md-8 col-12">
 
-        <div class="meta">
-          <span class="cert">{{ m.adult ? '18+' : 'PG-13' }}</span>
-          <span class="dot"></span>
-          <span>{{ m.release_date }}</span>
-          <span class="dot"></span>
-          <span>{{ m.runtime }} min</span>
-        </div>
+        <!-- STORYLINE -->
+        <section class="section storyline mb-4">
+          <h2 class="text-white">Storyline</h2>
+          <p class="text-white">{{ m.overview }}</p>
+        </section>
+        <!-- DETAILS BLOCK -->
+        <section class="mb-4">
+          <movie-details-block
+            [movie]="m"
+            [countries]="productionCountries()"
+            [languages]="spokenLanguages()"
+            [companies]="productionCompanies()"
+            class="mt-4"
+          ></movie-details-block>
+        </section>
 
-        <!-- Genres -->
-        <div class="genres">
-          <span *ngFor="let g of m.genres" class="genre">{{ g.name }}</span>
-        </div>
 
-        <!-- IMDb rating style -->
-        <div class="rating-box">
-          <div class="rating-score">⭐ {{ m.vote_average | number:'1.1-1' }}</div>
-          <div class="rating-count">{{ m.vote_count | number }} ratings</div>
-        </div>
+        <!-- CAST -->
+        <section class="mb-4">
+          <movie-cast [cast]="cast()"></movie-cast>
+        </section>
+
 
       </div>
-    </div>
-  </div>
 
-  <!-- MAIN CONTENT -->
-  <div class="container main-grid">
+      <!-- RIGHT SIDEBAR -->
 
-    <!-- LEFT MAIN CONTENT -->
-    <div class="left">
-
-      <!-- OVERVIEW -->
-      <section class="section storyline">
-        <h2>Storyline</h2>
-        <p>{{ m.overview }}</p>
-      </section>
-
-      <!-- TOP CAST -->
-      <section class="section cast-section" *ngIf="cast?.length">
-        <h2>Top cast</h2>
-
-        <div class="cast-grid">
-          <div class="cast-card" *ngFor="let c of cast.slice(0, 8)">
-
-            <img
-              *ngIf="c.profile_path"
-              [src]="'https://image.tmdb.org/t/p/w200' + c.profile_path"
-              class="cast-img"
-            />
-
-            <div class="cast-info">
-              <div class="cast-name">{{ c.name }}</div>
-              <div class="cast-role">{{ c.character }}</div>
-            </div>
-
+        <section class="col-lg-3 col-md-4 col-12 mt-4 mt-md-0">
+          <div class="position-sticky top-20">
+          <movie-sidebar [movie]="m"></movie-sidebar>
           </div>
-        </div>
+        </section>
 
-      </section>
 
-      <!-- DETAILS LIKE IMDb “Details” BLOCK -->
-      <section class="section details-section">
-
-        <h2>Details</h2>
-
-        <ul class="details-list">
-          <li>
-            <span class="label">Release date</span>
-            <span class="value">{{ m.release_date }}</span>
-          </li>
-
-          <li>
-            <span class="label">Countries of origin</span>
-            <span class="value">
-              {{productionCountries()}}
-            </span>
-          </li>
-
-          <li>
-            <span class="label">Languages</span>
-            <span class="value">
-              {{ spokenLanguages() }}
-            </span>
-          </li>
-
-          <li>
-            <span class="label">Budget</span>
-            <span class="value">{{ m.budget | currency:'USD':'symbol':'1.0-0' }}</span>
-          </li>
-
-          <li>
-            <span class="label">Revenue</span>
-            <span class="value">{{ m.revenue | currency:'USD':'symbol':'1.0-0' }}</span>
-          </li>
-
-          <li>
-            <span class="label">Production companies</span>
-            <span class="value">
-              {{ productionCompanies() }}
-            </span>
-          </li>
-        </ul>
-
-      </section>
 
     </div>
 
-    <!-- RIGHT SIDEBAR LIKE IMDb -->
-    <div class="right sidebar">
-
-      <div class="sidebar-box">
-        <h3>Box office</h3>
-        <p><strong>Budget:</strong> {{ m.budget | currency:'USD':'symbol':'1.0-0' }}</p>
-        <p><strong>Gross worldwide:</strong> {{ m.revenue | currency:'USD':'symbol':'1.0-0' }}</p>
-      </div>
-
-      <div class="sidebar-box">
-        <h3>Languages</h3>
-        <ul>
-          <li *ngFor="let l of m.spoken_languages">{{ l.english_name }}</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-box">
-        <h3>Production</h3>
-        <ul>
-          <li *ngFor="let c of m.production_companies">{{ c.name }}</li>
-        </ul>
-      </div>
-
-      <a
-        *ngIf="m.imdb_id"
-        class="btn btn-warning w-100 mt-3"
-        target="_blank"
-        [href]="'https://www.imdb.com/title/' + m.imdb_id">
-        View on IMDb
-      </a>
-
-    </div>
   </div>
+
 </div>

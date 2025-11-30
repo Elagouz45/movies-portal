@@ -6,7 +6,8 @@ export const MOVIES_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./pages/movie-list/movie-list.component').then(m => m.MovieListComponent)
+      import('./pages/movie-list/movie-list.component').then(m => m.MovieListComponent),
+    data: { animation: 'MoviesPage' }
   },
   {
     path: ':id',
@@ -15,6 +16,7 @@ export const MOVIES_ROUTES: Routes = [
     resolve: {
       movie: MovieDetailResolver,
       cast: MovieCastResolver
-    }
+    },
+    data: { animation: 'MovieDetailPage' }
   }
 ];

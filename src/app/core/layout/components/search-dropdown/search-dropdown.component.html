@@ -1,0 +1,22 @@
+<!-- Suggestions Dropdown -->
+<div class="search-dropdown row">
+  <div
+    class="suggestion-item col-6 col-md-3"
+    *ngFor="let s of suggestions()"
+    (click)="goToMovie(s.id)"
+  >
+
+    <img
+      *ngIf="s.poster_path"
+      class="suggestion-img"
+      [src]="'https://image.tmdb.org/t/p/w92' + s.poster_path"
+    />
+
+    <div class="suggestion-info">
+      <div class="suggestion-title">{{ s.title }}</div>
+      <div class="suggestion-meta">
+        {{ s.release_date | date:'yyyy' }} • ⭐ {{ s.vote_average }}
+      </div>
+    </div>
+  </div>
+</div>

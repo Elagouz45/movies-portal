@@ -1,12 +1,14 @@
-import { Injectable, signal, computed } from '@angular/core';
+import {Injectable, signal, computed, inject} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { tap } from 'rxjs';
 import { AuthStorageService } from '../services/auth-storage.service';
+import {Router} from '@angular/router';
 
 export interface AuthUser {
   id: number;
   email: string;
-  name: string;
+  name?: string;
+  username?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +19,7 @@ export class AuthFacade {
 
   private _isLoggedIn = signal<boolean>(false);
   isLoggedIn = computed(() => this._isLoggedIn());
-
+  private router = inject(Router);
   constructor(
     private authService: AuthService,
     private storage: AuthStorageService
@@ -76,5 +78,8 @@ export class AuthFacade {
     this.storage.clear();
     this._user.set(null);
     this._isLoggedIn.set(false);
+
+    this.router.navigate(['/login']);
   }
+
 }

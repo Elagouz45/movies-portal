@@ -1,5 +1,5 @@
 <app-loader *ngIf="loader()"></app-loader>
-
-<div class="app-wrapper">
-  <router-outlet></router-outlet>
+<app-navbar *ngIf="authFacade.isLoggedIn()"></app-navbar>
+<div [@routeTransition]="prepare(outlet)" class="app-wrapper">
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>

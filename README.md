@@ -1,61 +1,152 @@
-# MoviesPortal
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+# 🎬 Movies Portal — Angular 19 | TMDB API | Signals | Auth
 
-## Development server
+A modern and fully responsive movie browsing application built with **Angular 19**,  
+**TMDB API**, **Signals**, **Standalone Components**, **Mock Authentication**, and  
+**Facade Architecture**.
 
-To start a local development server, run:
+This project is designed with clean code standards and scalable architecture for  
+real-world applications.
 
-```bash
-ng serve
+
+---
+
+# 📦 Features
+
+### 🔐 Authentication
+- Login via mock JSON Server  
+- Access Token + Refresh Token  
+- Persistent session via AuthStorage  
+- Auto-redirect on logout  
+- Protected routes  
+- Signals-based reactive auth state  
+
+### 🎥 Movies
+- Popular Movies  
+- Movie Search with debounce  
+- Infinite Scroll (IntersectionObserver)  
+- Cast section  
+- Responsive IMDb-style layout  
+
+### ⚡ State Management (Signals + Facade)
+- MovieListFacade  
+- AuthFacade  
+- Global loader interceptor  
+
+### 🎨 UI
+- Bootstrap 5  
+- Angular Material  
+- Responsive Navbar + Mobile Sidebar  
+- Toast Notifications (MatSnackBar)  
+
+---
+
+# 🔧 Installation
+
+## 1) Install packages
+
+```sh
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 2) Install Mock Server tools
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```sh
+npm install json-server json-server-auth
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+# 🖥 Run Mock Auth Server
+
+```sh
+node mock-server/server.js
 ```
 
-## Building
+Backend runs at:
 
-To build the project run:
-
-```bash
-ng build
+```
+http://localhost:3000
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+# ▶️ Run Angular App
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```sh
+npm start
 ```
 
-## Running end-to-end tests
+Open:
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+http://localhost:4200
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+# 🔑 Mock Credentials
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Example from `mock-server/db.json`:
 
-# movies-portal
+```json
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+```
+# 🧱 Project Structure
+
+```
+src/
+ ├── app/
+ │   ├── core/
+ │   │   ├── auth/
+ │   │   │   ├── services/
+ │   │   │   ├── interceptors/
+ │   │   │   └── state/auth.facade.ts
+ │   │   ├── movies/
+ │   │   │   ├── movies.service.ts
+ │   │   │   └── movie-list.facade.ts
+ │   │   └── guards/
+ │   ├── features/
+ │   │   ├── auth/
+ │   │   └── movies/
+ │   ├── shared/
+ │   │   └── layout/navbar/
+ │   └── app.routes.ts
+ ├── assets/
+ └── environments/
+```
+
+### Docs:
+
+https://developer.themoviedb.org/docs/getting-started
+
+---
+
+# ✨ Key Patterns
+
+- **Facade Pattern**
+- **Signals**
+- **Strategy Pattern (error handling)**
+- **Interceptor Pattern**
+
+---
+
+# 📱 Responsive Layout
+- Desktop: Full navbar + grid  
+- Mobile: Sidebar menu + single column  
+
+---
+
+# 📜 License
+
+MIT
+
+---
+
+# ✨ Author
+Your Name  
+Movies Portal — Angular 19 Project
+

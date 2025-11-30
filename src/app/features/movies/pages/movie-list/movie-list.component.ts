@@ -1,79 +1,53 @@
-import { Component, effect, signal, computed } from '@angular/core';
-import { MoviesService } from '../../services/movies.service';
-import { TmdbMovieListResponse, TmdbMovieSummary } from '../../models/tmdb-movie.models';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
+import {MovieListFacade} from '../../state/movie-list.facade';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatInput} from '@angular/material/input';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-movie-list',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+
+  imports: [CommonModule, MovieCardComponent, MatProgressSpinner, MatInput, MatIcon],
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss']
 })
-export class MovieListComponent {
+export class MovieListComponent implements OnInit {
 
-  // --- SIGNAL STATE ---
-  movies = signal<TmdbMovieSummary[]>([]);
-  totalPages = signal(1);
+  @ViewChild('scrollAnchor', { static: true }) scrollAnchor!: ElementRef;
 
-  page = signal(1);
-  query = signal('');
+  private observer!: IntersectionObserver;
 
-  constructor(private moviesService: MoviesService) {
+  constructor(public facade: MovieListFacade) {}
 
-    // Auto-load when page changes AND query changes
-    effect(() => {
+  ngOnInit() {
+    this.facade.loadPopular();
+    this.setupInfiniteScroll();
+  }
 
-      const currentPage = this.page();
-      const searchText = this.query().trim();
+  /** ------------------------------
+   * Infinite Scroll using Observer
+   * ------------------------------ */
+  setupInfiniteScroll() {
+    this.observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
 
-      if (searchText.length > 0) {
-        this.loadSearch(searchText, currentPage);
-      } else {
-        this.loadPopular(currentPage);
+      if (entry.isIntersecting) {
+        if (!this.facade.loading() && this.facade.page() < this.facade.totalPages()) {
+          // alert('ds')
+          this.facade.loadMore();
+        }
       }
+    }, {
+      root: null,      // viewport
+      threshold: 0.5   // trigger when 50% visible
     });
+
+    this.observer.observe(this.scrollAnchor.nativeElement);
   }
 
-  // --- API CALLS USING SERVICE ---
-
-  private loadPopular(page: number) {
-    this.moviesService.getPopularMovies(page).subscribe({
-      next: (res: TmdbMovieListResponse) => {
-        this.movies.set(res.results);
-        this.totalPages.set(res.total_pages);
-      }
-    });
+  ngOnDestroy() {
+    this.observer.disconnect();
   }
-
-  private loadSearch(query: string, page: number) {
-    this.moviesService.searchMovies(query, page).subscribe({
-      next: (res: TmdbMovieListResponse) => {
-        this.movies.set(res.results);
-        this.totalPages.set(res.total_pages);
-      }
-    });
-  }
-
-  // --- UI ACTIONS ---
-
-  updateSearch(value: string) {
-    this.query.set(value);
-    this.page.set(1); // reset page on new search
-  }
-
-  nextPage() {
-    if (this.page() < this.totalPages()) {
-      this.page.update(p => p + 1);
-    }
-  }
-
-  prevPage() {
-    if (this.page() > 1) {
-      this.page.update(p => p - 1);
-    }
-  }
-
 }

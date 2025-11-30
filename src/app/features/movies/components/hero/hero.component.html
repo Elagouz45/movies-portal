@@ -1,0 +1,45 @@
+<div
+  class="hero-section"
+  [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original' + movie.backdrop_path + ')'"
+>
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-content row">
+
+    <!-- Poster -->
+    <div class="col-lg-3 col-md-4 col-12 d-flex justify-content-center mb-3 mb-md-0">
+      <img
+        *ngIf="movie.poster_path"
+        class="poster"
+        [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+      />
+    </div>
+
+    <!-- Title -->
+    <div class="col-lg-9 col-md-8 col-12 text-white">
+
+      <h1 class="title">
+        {{ movie.title }}
+        <span class="year">({{ movie.release_date | date:'yyyy' }})</span>
+      </h1>
+
+      <div class="meta">
+        <span class="cert">{{ movie.adult ? '18+' : 'PG-13' }}</span>
+        <span class="dot"></span>
+        <span>{{ movie.release_date }}</span>
+        <span class="dot"></span>
+        <span>{{ movie.runtime }} min</span>
+      </div>
+
+      <div class="genres mb-2">
+        <span *ngFor="let g of movie.genres" class="genre">{{ g.name }}</span>
+      </div>
+
+      <div class="rating-box">
+        <div class="rating-score">⭐ {{ movie.vote_average | number:'1.1-1' }}</div>
+        <div class="rating-count">{{ movie.vote_count | number }} ratings</div>
+      </div>
+
+    </div>
+  </div>
+</div>

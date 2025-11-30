@@ -1,0 +1,71 @@
+.hero-section {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 92px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 72%), #00000000);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  margin: auto;
+}
+
+.poster {
+  width: 313px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.year {
+  font-size: 28px;
+  opacity: 0.8;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.9;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.genres{
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  .genre {
+    background: #333;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+  }
+
+}
+
+
+.rating-score {
+  font-size: 20px;
+  font-weight: bold;
+}

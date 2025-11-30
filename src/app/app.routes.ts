@@ -10,6 +10,6 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/movies/movies.routes').then(m => m.MOVIES_ROUTES)
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' }
+  { path: '', redirectTo: 'movies', pathMatch: 'full' },
+  { path: '**', redirectTo: 'movies' }
 ];

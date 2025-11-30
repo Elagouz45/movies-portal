@@ -1,0 +1,9 @@
+<div [routerLink]="['/movies', movie.id]" class="movie-card" [ngStyle]="{ 'background-image': 'url(' + posterUrl + ')' }">
+ <div class="card-img-overlay"></div>
+  <a>
+    <div class="info">
+      <h5>{{ movie.title }}</h5>
+      <p class="rating">⭐ {{ movie.vote_average | number: '1.1-1' }}</p>
+    </div>
+  </a>
+</div>

@@ -12,7 +12,7 @@ import { MatIconModule }      from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
+
   imports: [
     CommonModule,
     FormsModule,
@@ -26,8 +26,8 @@ import { MatIconModule }      from '@angular/material/icon';
 })
 export class LoginComponent {
 
-  email = signal('');
-  password = signal('');
+  email = signal('dev@tawzef.com');
+  password = signal('dev123');
   hidePassword = signal(true);
 
   loading = signal(false);
@@ -49,7 +49,7 @@ export class LoginComponent {
       },
       error: () => {
         this.loading.set(false);
-        this.error.set('Invalid email or password');
+        // this.error.set('Invalid email or password');
       }
     });
   }

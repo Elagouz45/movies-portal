@@ -4,7 +4,7 @@ import {LoaderService} from '../../../core/auth/services/loader.service';
 
 @Component({
   selector: 'app-loader',
-  standalone: true,
+
   imports: [CommonModule],
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']

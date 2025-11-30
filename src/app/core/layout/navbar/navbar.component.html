@@ -1,0 +1,87 @@
+<section #navbar class="bg-navbar navbar-section">
+  <div class="container ">
+
+    <nav class="navbar-dark bg-transparent topbar px-3">
+
+      <!-- Logo -->
+      <a class="navbar-brand" routerLink="/">
+        <mat-icon>movie</mat-icon>
+        <span class="ms-2 d-md-block d-none">MoviesPortal</span>
+      </a>
+
+      <!-- DESKTOP MENU -->
+      <ul class="desktop-menu d-none d-md-flex">
+        <li><a routerLink="/movies" routerLinkActive="active">Movies</a></li>
+      </ul>
+
+      <!-- RIGHT SIDE -->
+      <div class="ms-auto d-flex align-items-center gap-3">
+
+        <!-- 🔎 Animated Search -->
+        <div class="search-container d-flex align-items-center">
+
+          <!-- Search Icon -->
+          <button class="search-btn d-flex" (click)="toggleSearch()">
+            <mat-icon>search</mat-icon>
+          </button>
+
+          <input
+            *ngIf="searchOpen"
+            type="text"
+            class="search-input"
+            placeholder="Search movies..."
+            autofocus
+            (input)="onSearch(($any($event.target)).value)"
+          />
+          <!-- Close (X) -->
+          <button *ngIf="searchOpen" class="close-search-btn" (click)="closeSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <ng-container *ngIf="searchOpen && suggestions().length > 0">
+            <app-search-dropdown></app-search-dropdown>
+          </ng-container>
+
+        </div>
+
+        <!-- User -->
+        <div *ngIf="auth.isLoggedIn()" class="text-white d-none d-md-flex align-items-center gap-1 cursor-pointer pointer-event" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </div>
+
+      </div>
+
+      <!-- MOBILE MENU BUTTON -->
+      <button class="menu-btn d-md-none" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+    </nav>
+
+  </div>
+
+  <!-- MOBILE SIDEBAR -->
+  <div class="sidebar d-md-none" [class.open]="menuOpen">
+
+    <div class="sidebar-header">
+      <h4 class="text-white">Menu</h4>
+      <button class="close-btn" (click)="closeMenu()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li (click)="closeMenu()">
+        <a routerLink="/movies"><mat-icon>theaters</mat-icon> Movies</a>
+      </li>
+
+      <li (click)="logout()">
+        <a><mat-icon>logout</mat-icon> Logout</a>
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- MOBILE OVERLAY -->
+  <div class="overlay d-md-none" *ngIf="menuOpen" (click)="closeMenu()"></div>
+</section>

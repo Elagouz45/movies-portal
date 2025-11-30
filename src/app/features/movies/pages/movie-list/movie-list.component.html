@@ -1,56 +1,17 @@
-<div class="container py-4">
+<div class="container mt-4">
 
-  <!-- SEARCH INPUT -->
-  <input
-    class="form-control mb-3 search-input"
-    placeholder="Search movies..."
-    [ngModel]="query()"
-    (ngModelChange)="updateSearch($event)"
-  />
-
-  <!-- MOVIES GRID -->
-  <div class="row g-4">
-    <div
-      class="col-6 col-sm-4 col-md-3 col-lg-3 cursor-pointer"
-      *ngFor="let m of movies()"
-    >
-      <div class="movie-card shadow-sm" [routerLink]="[m.id]">
-
-        <img
-          class="movie-img"
-          *ngIf="m.poster_path"
-          [src]="'https://image.tmdb.org/t/p/w300' + m.poster_path"
-          alt="{{ m.title }}"
-        />
-
-        <h6 class="movie-title mt-2 ps-1">{{ m.title }}</h6>
-        <p class="rating ps-1">⭐ {{ m.vote_average }}</p>
-
-      </div>
+  <div class="row">
+    <div class="col-md-3 mb-4" *ngFor="let movie of facade.movies()">
+      <app-movie-card [movie]="movie"></app-movie-card>
     </div>
   </div>
 
-  <!-- PAGINATION -->
-  <div class="d-flex justify-content-between align-items-center mt-4 pagination-box">
-
-    <button
-      class="btn btn-secondary"
-      (click)="prevPage()"
-      [disabled]="page() === 1">
-      Prev
-    </button>
-
-    <span class="page-info">
-      Page {{ page() }} / {{ totalPages() }}
-    </span>
-
-    <button
-      class="btn btn-secondary"
-      (click)="nextPage()"
-      [disabled]="page() >= totalPages()">
-      Next
-    </button>
-
+  <!-- Loader -->
+  <div class="text-center my-3" *ngIf="facade.loading()">
+    <mat-spinner diameter="40"></mat-spinner>
   </div>
+
+  <!-- Intersection Observer Trigger -->
+  <div #scrollAnchor style="height: 1px;"></div>
 
 </div>

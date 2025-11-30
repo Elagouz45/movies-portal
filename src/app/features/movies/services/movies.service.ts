@@ -4,8 +4,9 @@ import { environment } from '../../../../environments/environment';
 import {
   TmdbMovieListResponse,
   TmdbMovieDetail,
-  TmdbCreditsResponse
+  TmdbCreditsResponse, TmdbResponse
 } from '../models/tmdb-movie.models';
+import {Observable} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MoviesService {
@@ -14,25 +15,17 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {}
 
-  getPopularMovies(page: number = 1) {
-    return this.http.get<TmdbMovieListResponse>(`${this.api}/movie/popular`, {
-      params: {
-        api_key: this.key,
-        page
-      }
-    });
+  getPopular(page: number): Observable<TmdbResponse> {
+    return this.http.get<TmdbResponse>(
+      `${this.api}/movie/popular?page=${page}&api_key=${environment.tmdbApiKey}`
+    );
   }
 
-  searchMovies(query: string, page: number = 1) {
-    return this.http.get<TmdbMovieListResponse>(`${this.api}/search/movie`, {
-      params: {
-        api_key: this.key,
-        query,
-        page
-      }
-    });
+  search(query: string, page: number): Observable<TmdbResponse> {
+    return this.http.get<TmdbResponse>(
+      `${this.api}/search/movie?query=${query}&page=${page}&api_key=${environment.tmdbApiKey}`
+    );
   }
-
   getMovieDetails(movieId: number) {
     return this.http.get<TmdbMovieDetail>(`${this.api}/movie/${movieId}`, {
       params: { api_key: this.key }

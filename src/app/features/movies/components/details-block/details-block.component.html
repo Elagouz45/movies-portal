@@ -1,0 +1,39 @@
+<section class="section">
+
+  <h2 class="text-white">Details</h2>
+
+  <ul class="list-group list-group-flush">
+
+    <li class="list-group-item bg-transparent d-flex justify-content-between">
+      <span class="text-white">Release date</span>
+      <strong class="text-white">{{ movie.release_date }}</strong>
+    </li>
+
+    <li class="list-group-item bg-transparent d-flex justify-content-between">
+      <span class="text-white">Countries of origin</span>
+      <strong class="text-white">{{ countries }}</strong>
+    </li>
+
+    <li class="list-group-item bg-transparent d-flex justify-content-between">
+      <span class="text-white">Languages</span>
+      <strong class="text-white">{{ languages }}</strong>
+    </li>
+
+    <li class="list-group-item bg-transparent d-flex justify-content-between">
+      <span class="text-white">Budget</span>
+      <strong class="text-white">{{ movie.budget | currency:'USD' }}</strong>
+    </li>
+
+    <li class="list-group-item bg-transparent d-flex justify-content-between">
+      <span class="text-white">Revenue</span>
+      <strong class="text-white">{{ movie.revenue | currency:'USD' }}</strong>
+    </li>
+
+    <li class="list-group-item bg-transparent d-flex justify-content-between">
+      <span class="text-white">Production companies</span>
+      <strong class="text-white">{{ companies }}</strong>
+    </li>
+
+  </ul>
+
+</section>

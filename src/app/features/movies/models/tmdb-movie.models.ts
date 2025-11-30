@@ -1,3 +1,7 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
 export interface TmdbMovieDetail {
   adult: boolean;
   backdrop_path: string | null;
@@ -77,3 +81,17 @@ export interface TmdbCreditsResponse {
   cast: TmdbCastMember[];
 }
 
+export interface TmdbMovie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  vote_average: number;
+  release_date: string;
+}
+
+export interface TmdbResponse {
+  page: number;
+  results: TmdbMovie[];
+  total_pages: number;
+  total_results: number;
+}

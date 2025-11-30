@@ -1,0 +1,26 @@
+<section *ngIf="cast.length" class="section">
+
+  <h2 class="mb-3 text-white">Top Cast</h2>
+
+  <div class="row">
+
+    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3" *ngFor="let c of cast.slice(0, 8)">
+      <div class="cast-card">
+
+        <img
+          *ngIf="c.profile_path"
+          [src]="'https://image.tmdb.org/t/p/w200' + c.profile_path"
+          class="cast-img"
+        />
+
+        <div class="cast-info">
+          <div class="cast-name">{{ c.name }}</div>
+          <div class="cast-role">{{ c.character }}</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
