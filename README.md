@@ -49,18 +49,12 @@ real-world applications.
 npm install
 ```
 
-## 2) Install Mock Server tools
-
-```sh
-npm install json-server json-server-auth
-```
-
 ---
 
 # 🖥 Run Mock Auth Server
 
 ```sh
-node mock-server/server.js
+npm run mock
 ```
 
 Backend runs at:
@@ -91,8 +85,8 @@ Example from `mock-server/db.json`:
 
 ```json
 {
-  "email": "admin@example.com",
-  "password": "admin123"
+  "email": "dev@tawzef.com",
+  "password": "dev123"
 }
 ```
 # 🧱 Project Structure
